@@ -7,20 +7,29 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
-  SafeAreaView,
+  SafeAreaView
 } from "react-native";
 import axios from "axios";
 import Post from "./components/Post";
+import Navbar from './components/Navbar';
+
+const URLS=[
+  "https://api.reddit.com/r/pics/hot.json",
+  "https://api.reddit.com/r/pics/top.json",
+  "https://api.reddit.com/r/pics/new.json",
+  "https://api.reddit.com/r/pics/controversial.json"
+]
 
 export default function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [buttonSelected, setButtonSelected] = useState(1);
 
   function fetchingRefresh() {
     setRefresh(true);
     axios
-      .get("https://api.reddit.com/r/pics/hot.json")
+      .get(URLS[buttonSelected - 1])
       .then((e) => {
         setData(e.data.data.children);
       })
@@ -30,12 +39,12 @@ export default function App() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("https://api.reddit.com/r/pics/hot.json")
+      .get(URLS[buttonSelected - 1])
       .then((e) => {
         setData(e.data.data.children);
       })
       .then((e) => setLoading(false));
-  }, []);
+  }, [buttonSelected]);
 
   if (loading) {
     return (
@@ -57,6 +66,7 @@ export default function App() {
         }
       >
         <Text style={styles.title}>Chipeddit App</Text>
+        <Navbar buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}></Navbar>
         {data.length > 0 &&
           data.map((e, i) => {
             return (
@@ -71,6 +81,7 @@ export default function App() {
                 author={`${e.data.author}`}
                 num_comments={`${e.data.num_comments}`}
                 created_utc={`${e.data.created_utc}`}
+                score={`${e.data.score}`}
               ></Post>
             );
           })}

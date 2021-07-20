@@ -29,5 +29,4 @@ function timeSince(date) {
   if (Math.floor(interval) === 1) return Math.floor(interval) + " second";
   return Math.floor(seconds) + " seconds";
 }
-//Un cambio
 export default timeSince;

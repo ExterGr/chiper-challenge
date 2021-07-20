@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77d8b7ad-3d0e-4118-b0a0-5d016241fa3f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/chiper-challenge/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/chiper-challenge/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chiper-challenge/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/chiper-challenge/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="77d8b7ad-3d0e-4118-b0a0-5d016241fa3f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/chiper-challenge" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1vXo7a4sfVicobERUEccLzoKO05" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

@@ -8,13 +8,20 @@ import {
   Linking,
   Alert,
 } from "react-native";
-import timeSince from '../js/timeSince';
+import timeSince from "../js/timeSince";
 
-const Post = ({ uri, title, permalink, author, num_comments, created_utc }) => {
+const Post = ({
+  uri,
+  title,
+  permalink,
+  author,
+  num_comments,
+  created_utc,
+  score,
+}) => {
+  if (author.length > 15) author = author.slice(0, 15) + "...";
 
-  if(author.length > 15) author = author.slice(0, 15) + '...';
-
-  let auxDate = new Date(Date.now() - (Date.now() - (created_utc * 1000))); 
+  let auxDate = new Date(Date.now() - (Date.now() - created_utc * 1000));
 
   const handlePress = useCallback(async () => {
     const link = "http://www.reddit.com" + permalink;
@@ -31,15 +38,18 @@ const Post = ({ uri, title, permalink, author, num_comments, created_utc }) => {
     <View>
       <TouchableOpacity style={styles.card} onPress={handlePress}>
         <Image
-          source={{ uri: uri }}
+          source={{ uri: uri || "https://i.redd.it/2qy7unjo2j331.png" }}
           style={{ width: 125, height: 125, borderRadius: 6 }}
         ></Image>
         <View style={styles.cardContent}>
           <Text style={styles.text}>{title}</Text>
-          <Text>{timeSince(auxDate)} ago</Text>
+          <Text style={styles.date}>
+            {timeSince(auxDate)} ago by{" "}
+            <Text style={styles.author}>{author}</Text>
+          </Text>
           <View style={styles.detailsContainer}>
-            <Text style={styles.detailsText}>{author}   </Text>
-            <Text style={styles.detailsText}>{num_comments} comments</Text>
+            <Text style={styles.detailsText}>score: {score} </Text>
+            <Text style={styles.detailsText}>comments: {num_comments}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -65,20 +75,26 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
     marginRight: 6,
     marginVertical: 10,
+    fontWeight: "bold",
   },
   cardContent: {
     flex: 1,
     flexDirection: "column",
     justifyContent: "space-between",
   },
-  detailsContainer:{
-    flexDirection: 'row',
-    marginLeft: 3
+  detailsContainer: {
+    flexDirection: "row",
+    marginLeft: 3,
   },
   detailsText: {
-    color: '#6a6a6a',
-  }
-
+    color: "#6a6a6a",
+  },
+  date: {
+    marginLeft: 3,
+  },
+  author: {
+    fontStyle: "italic",
+  },
 });
 
 export default Post;
