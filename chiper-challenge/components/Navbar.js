@@ -1,17 +1,12 @@
-import React, {useState} from "react";
+import React from "react";
 import {
-  Image,
   StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  Linking,
-  Button,
   Pressable 
 } from "react-native";
 
 const Navbar = ({buttonSelected, setButtonSelected}) => {
-    const [button, setButton] = useState(1);
 
     function handleChange(event, number){
         if(number === buttonSelected) return;

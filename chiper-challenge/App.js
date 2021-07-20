@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import Post from "./components/Post";
 import Navbar from './components/Navbar';
+import Loader from './components/Loader';
 
 const URLS=[
   "https://api.reddit.com/r/pics/hot.json",
@@ -25,6 +26,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [buttonSelected, setButtonSelected] = useState(1);
+  const [enabled, setEnabled] = useState(false);
 
   function fetchingRefresh() {
     setRefresh(true);
@@ -43,14 +45,13 @@ export default function App() {
       .then((e) => {
         setData(e.data.data.children);
       })
-      .then((e) => setLoading(false));
+      .then((e) => setLoading(false))
+      .then((e) => {if(!enabled) setEnabled(true)})
   }, [buttonSelected]);
 
-  if (loading) {
+  if (loading && !enabled) {
     return (
-      <View style={styles.loader}>
-        <ActivityIndicator color="#232323" size="large"></ActivityIndicator>
-      </View>
+      <Loader></Loader>
     );
   }
 
@@ -65,9 +66,9 @@ export default function App() {
           <RefreshControl refreshing={refresh} onRefresh={fetchingRefresh} />
         }
       >
-        <Text style={styles.title}>Chipeddit App</Text>
+        <Text style={styles.title}>Chipeddit <Text style={{color:'#232323'}}>App</Text></Text>
         <Navbar buttonSelected={buttonSelected} setButtonSelected={setButtonSelected}></Navbar>
-        {data.length > 0 &&
+        {(loading && <Loader></Loader>) || data.length > 0 &&
           data.map((e, i) => {
             return (
               <Post
@@ -100,13 +101,10 @@ const styles = StyleSheet.create({
   title:{
     color: '#232323',
     fontSize: 25,
-    textAlign: 'center'
+    textAlign: 'center',
+    letterSpacing: 7,
+    fontSize: 30,
+    color: '#f50024',
+    fontWeight:'bold'
   }
-  ,
-  loader: {
-    flex: 1,
-    backgroundColor: "#f1f1f1",
-    justifyContent: "center",
-    alignContent: "center",
-  },
 });
