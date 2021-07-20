@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
-  View,
   ScrollView,
-  ActivityIndicator,
   RefreshControl,
   SafeAreaView
 } from "react-native";
